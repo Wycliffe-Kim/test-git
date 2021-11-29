@@ -26,7 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         # cache: 'npm'
-    - run: cd node
-    - run: yarn
+    # - run: cd node
+    - run: cd node && yarn
     # - run: yarn run build --frozen-lockfile
-    - run: yarn run test
+    - run: cd node && yarn run test
