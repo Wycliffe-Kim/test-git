@@ -1,5 +1,5 @@
 function main() {
-  console.log('b');
+  console.log('c');
   const c = { a: 1 };
 
   const a = 1;
