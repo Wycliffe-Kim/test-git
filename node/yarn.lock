@@ -2136,10 +2136,10 @@ escodegen@^2.0.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-wycliffe@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-wycliffe/-/eslint-config-wycliffe-1.0.0.tgz#1950fc0894070f5304795323958e15f14e40bbf8"
-  integrity sha512-feJRSSN/Da9UDuYR0HiEeVyP8VgxiGA9H5pEC/NeHTp8XVtFwSLTj20ci3iRsh4G+VV7XC+joC1W8EKwCLUR9g==
+eslint-config-wycliffe@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-wycliffe/-/eslint-config-wycliffe-1.0.2.tgz#30dff07c97cf1e2141c585c769216dc979ef853a"
+  integrity sha512-fm6Kq4cq+q7Dpcm8+VBqoCq3dIMJI8mQ+4aYm5gO2OLgVx4pvCdmQJNuwLBZShA13FzW07E2PlyhmfFRzktK3A==
 
 eslint-import-resolver-node@^0.3.6:
   version "0.3.6"
