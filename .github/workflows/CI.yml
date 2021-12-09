@@ -72,6 +72,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: branch name
-      if: ${{ startsWith(github.ref_name, 'test-') }}
+      if: ${{ github.event_name == 'push' && startsWith(github.ref_name, 'test-') }}
       run: echo "test" ${{ github.ref_name }}
       # if: 
