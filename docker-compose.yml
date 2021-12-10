@@ -9,6 +9,8 @@ services:
       context: ./node
     volumes:
       - /usr/app/node_modules
+    environment: 
+      - DOCKER_HUB_USERNAME=${DOCKER_HUB_USERNAME}
 
   python:
     container_name: python
@@ -16,4 +18,6 @@ services:
     build: 
       dockerfile: Dockerfile
       context: ./python
+    environment: 
+      - DOCKER_HUB_USERNAME=${DOCKER_HUB_USERNAME}
       
