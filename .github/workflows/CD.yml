@@ -12,6 +12,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env: 
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+
     steps:
 
     - name: Checkout Repo
@@ -26,8 +29,6 @@ jobs:
     - name: Docker Compose Build
       run: |
         docker-compose build
-      env: 
-        DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
 
     - name: Docker Compose Push
       run: |
