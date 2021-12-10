@@ -25,7 +25,11 @@ jobs:
 
     - name: Make Env File
       run: |
-        echo ${{ DOCKER_HUB_USERNAME=secrets.DOCKER_HUB_USERNAME }}>>build.env
+        echo DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}>>build.env
+
+    - name: Check File
+      run: |
+        cat build.env
     
     - name: Docker Compose Build
       run: |
