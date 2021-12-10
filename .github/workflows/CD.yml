@@ -22,10 +22,14 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+    - name: Make Env File
+      run: |
+        echo DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}>>build.env
     
     - name: Docker Compose Build
       run: |
-        docker-compose build --build-arg DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}
+        docker-compose --env-file ./build.env build
 
     - name: Docker Compose Push
       run: |
