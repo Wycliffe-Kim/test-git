@@ -27,7 +27,7 @@ jobs:
       run: |
         docker-compose build
       env:
-        DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}
+        DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
 
     - name: Docker Compose Push
       run: |
