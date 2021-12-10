@@ -3,7 +3,7 @@ version: '3.4'
 services:
   node:
     container_name: node
-    image: f16co/test-git_node:latest
+    image: ${DOCKER_HUB_USERNAME}/test-git_node:latest
     build:
       dockerfile: Dockerfile
       context: ./node
@@ -12,7 +12,7 @@ services:
 
   python:
     container_name: python
-    image: f16co/test-git_python:latest
+    image: ${DOCKER_HUB_USERNAME}/test-git_python:latest
     build: 
       dockerfile: Dockerfile
       context: ./python
