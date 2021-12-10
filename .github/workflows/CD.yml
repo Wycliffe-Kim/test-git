@@ -25,7 +25,7 @@ jobs:
     
     - name: Docker Compose Build
       run: |
-        docker-compose build --build-arg DOCKER_HUB_USERNAME=$${{ secrets.DOCKER_HUB_USERNAME }}
+        docker-compose build --build-arg DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}
 
     - name: Docker Compose Push
       run: |
