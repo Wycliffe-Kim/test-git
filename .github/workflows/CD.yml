@@ -50,15 +50,11 @@ jobs:
       run: |-
         docker-compose push
     
-    - name: Docker stop all
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker kill $(docker ps -q)"
+    # - name: Docker stop all
+    #   run: |-
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo docker kill $(docker ps -q)"
 
-    - name: Docker system prune --volumes
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker system prune --volumes"
 
     - name: Docker pull
       run: |-
@@ -79,3 +75,8 @@ jobs:
       run: |-
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
         --command="sudo docker ps -a"
+        
+    - name: Docker system prune --volumes
+      run: |-
+        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+        --command="sudo docker system prune --volumes"
