@@ -53,7 +53,7 @@ jobs:
     - name: Docker stop all
       run: |-
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker stop $(docker ps -a -q)"
+        --command="sudo docker kill $(docker ps -q)"
 
     - name: Docker system prune --volumes
       run: |-
