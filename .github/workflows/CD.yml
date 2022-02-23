@@ -76,6 +76,10 @@ jobs:
         run: |-
           gcloud info
 
+      - name: GCP configure project
+        run: |-
+          gcloud config set project 
+
       - name: GCP configure docker
         run: |-
           gcloud --quiet auth configure-docker
