@@ -82,7 +82,7 @@ jobs:
 
       - name: GCP instance get
         run: |-
-          gcloud compute instances get-iam-policy
+          gcloud compute instances get-iam-policy $GCE_INSTANCE : --zone=$GCE_INSTANCE_ZONE
 
       - name: Connect GCE And execute docker ps
         run: |-
