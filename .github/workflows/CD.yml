@@ -68,9 +68,9 @@ jobs:
 
       - name: GCP Github Action
         uses: google-github-actions/setup-gcloud@v0
-        # with:
-        #   service_account_key: ${{ secrets.GCP_SA_KEY }}
-        #   project_id: ${{ secrets.GCP_PROJECT_ID }}
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Use GCP CLI
         run: |-
