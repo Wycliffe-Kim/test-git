@@ -72,10 +72,6 @@ jobs:
       - name: GCP Github Action
         uses: google-github-actions/setup-gcloud@v0
 
-      - name: Use GCP CLI
-        run: |-
-          gcloud info
-
       - name: GCP configure docker
         run: |-
           gcloud --quiet auth configure-docker
