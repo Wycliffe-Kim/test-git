@@ -84,5 +84,6 @@ jobs:
 
       - name: Connect GCE And execute docker ps
         run: |-
-          gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE"
+          gcloud compute ssh "$GCE_INSTANCE"
+      #  --zone "$GCE_INSTANCE_ZONE"
       # gcloud compute ssh analytics-setting --zone asia-northeast3-a
