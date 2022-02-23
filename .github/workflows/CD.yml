@@ -82,7 +82,7 @@ jobs:
 
       - name: GCP instance get
         run: |-
-          gcloud compute instance get
+          gcloud compute instances get-iam-policy
 
       - name: Connect GCE And execute docker ps
         run: |-
