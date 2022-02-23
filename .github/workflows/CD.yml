@@ -80,9 +80,9 @@ jobs:
         run: |-
           gcloud --quiet auth configure-docker
 
-      - name: GCP instance get
-        run: |-
-          gcloud compute instances get-iam-policy $GCE_INSTANCE --zone=$GCE_INSTANCE_ZONE
+      # - name: GCP instance get
+      #   run: |-
+      #     gcloud compute instances get-iam-policy $GCE_INSTANCE --zone=$GCE_INSTANCE_ZONE
 
       - name: Connect GCE And execute docker ps
         run: |-
