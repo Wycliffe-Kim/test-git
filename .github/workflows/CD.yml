@@ -80,6 +80,10 @@ jobs:
         run: |-
           gcloud --quiet auth configure-docker
 
+      - name: GCP instance get
+        run: |-
+          gcloud compute instance get
+
       - name: Connect GCE And execute docker ps
         run: |-
           gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" -- 'sudo docker ps'
