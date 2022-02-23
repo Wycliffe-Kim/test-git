@@ -74,7 +74,7 @@ jobs:
 
       - name: GCP configure docker
         run: |-
-        gcloud --quiet auth configure-docker
+          gcloud --quiet auth configure-docker
 
       - name: Connect GCE And execute docker ps
         run: |-
