@@ -63,7 +63,7 @@ jobs:
 
       - name: GCE get IAM policy
         run: |-
-          gcloud project get-iam-policy ${{ secrets.GCP_PROJECT_ID }}
+          gcloud iam service-accounts get-iam-policy ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Connect GCE And execute docker ps
         run: |-
