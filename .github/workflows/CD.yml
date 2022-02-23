@@ -36,10 +36,11 @@
 
 name: CD
 
-on:
+on: [push]
+# on:
   # workflow_run:
     # workflows: [ CI ]
-    branches: [ master ]
+    # branches: [ master ]
     # types:
     #   - completed
 
