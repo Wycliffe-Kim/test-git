@@ -67,7 +67,7 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:
-          credential_json: ${{ secrets.GCP_SA_KEY }}
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
           # workload_identity_provider: projects/${{ secrets.GCP_PROJECT_ID }}/zones/$GCE_INSTANCE_ZONE/instances/$GCE_INSTANCE
           # service_account: $GCE_INSTANCE-account@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
 
