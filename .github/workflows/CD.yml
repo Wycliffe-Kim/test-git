@@ -62,7 +62,7 @@ jobs:
 
       - name: Log
         run: |-
-          echo $GCE_INSTANCE $GCE_INSTANCE_ZONE
+          echo projects/${{ secrets.GCP_PROJECT_ID }}/zones/$GCE_INSTANCE_ZONE/instances/$GCE_INSTANCE $GCE_INSTANCE-account@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
