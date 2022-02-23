@@ -10,20 +10,17 @@ on:
 env:
   GCE_INSTANCE: analytics-setting	  
   GCE_INSTANCE_ZONE: asia-northeast3-a
+  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
 
 jobs:
   cd:
-
     runs-on: ubuntu-latest
 
-    env: 
-      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    
     steps:
-      permissions:
-        contents: 'read'
-        id-token: 'write'
-
     - name: Checkout Repo
       uses: actions/checkout@v2
 
