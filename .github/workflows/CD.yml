@@ -65,7 +65,7 @@ jobs:
         with:
           workload_identity_provider: projects/${{ secrets.GCP_PROJECT_ID }}/zones/$GCE_INSTANCE_ZONE/instances/$GCE_INSTANCE
           service_account: $GCE_INSTANCE-account@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
-
+          credential_json: ${{ secrets.GCP_SA_KEY }}
 
       - name: GCP Github Action
         uses: google-github-actions/setup-gcloud@v0
