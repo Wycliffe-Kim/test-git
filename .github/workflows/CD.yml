@@ -37,14 +37,13 @@
 name: CD
 
 on:
-  workflow_run:
-    workflows: [ CI ]
+  # workflow_run:
+    # workflows: [ CI ]
     branches: [ master ]
-    types:
-      - completed
+    # types:
+    #   - completed
 
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GCE_INSTANCE: analytics-setting	  
   GCE_INSTANCE_ZONE: asia-northeast3-a
 
@@ -63,8 +62,10 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:
-          workload_identity_provider: projects/${{ secrets.GCP_PROJECT_ID }}/zones/$GCE_INSTANCE_ZONE/instances/$GCE_INSTANCE
-          service_account: $GCE_INSTANCE-account@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
+          # workload_identity_provider: projects/${{ secrets.GCP_PROJECT_ID }}/zones/$GCE_INSTANCE_ZONE/instances/$GCE_INSTANCE
+          # service_account: $GCE_INSTANCE-account@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com
+          workload_identity_provider: projects/nota-its/zones/asia-northease3-a/instances/analytics-setting
+          service_account: analytics-setting-account@nota-its.iam.gserviceaccount.com
 
       - name: GCP Github Action
         uses: google-github-actions/setup-gcloud@v0
@@ -82,4 +83,5 @@ jobs:
 
       - name: Connect GCE And execute docker ps
         run: |-
-          gcloud compute ssh $GCE_INSTANCE --zone $GCE_INSTANCE_ZONE
+          gcloud compute ssh analytics-setting --zone asia-northeast3-a
+      # gcloud compute ssh $GCE_INSTANCE --zone $GCE_INSTANCE_ZONE
