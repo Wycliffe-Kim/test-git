@@ -1,81 +1,66 @@
-# name: CD
-
-# on:
-#   workflow_run:
-#     workflows: [ CI ]
-#     branches: [ master ]
-#     types:
-#       - completed
-
-# jobs:
-#   cd:
-
-#     runs-on: ubuntu-latest
-
-#     env: 
-#       DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-
-#     steps:
-
-#     - name: Checkout Repo
-#       uses: actions/checkout@v2
-
-#     - name: Login to Docker Hub
-#       uses: docker/login-action@v1
-#       with:
-#         username: ${{ secrets.DOCKER_HUB_USERNAME }}
-#         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-#     - name: Docker Compose Build
-#       run: |
-#         docker-compose build
-
-#     - name: Docker Compose Push
-#       run: |
-#         docker-compose push
-
 name: CD
 
-on: [push]
-# on:
-  # workflow_run:
-    # workflows: [ CI ]
-    # branches: [ master ]
-    # types:
-    #   - completed
+on:
+  workflow_run:
+    workflows: [ CI ]
+    branches: [ master ]
+    types:
+      - completed
 
 env:
   GCE_INSTANCE: analytics-setting	  
   GCE_INSTANCE_ZONE: asia-northeast3-a
 
 jobs:
-  cd: 
+  cd:
+
     runs-on: ubuntu-latest
-    
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-    
+
+    env: 
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      permissions:
+        contents: 'read'
+        id-token: 'write'
 
-      - name: Log
-        run: |-
-          echo gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" -- 'docker ps'
+    - name: Checkout Repo
+      uses: actions/checkout@v2
 
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v0
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: GCP Github Action
-        uses: google-github-actions/setup-gcloud@v0
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v0
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: GCP configure docker
-        run: |-
-          gcloud --quiet auth configure-docker
+    - name: GCP Github Action
+      uses: google-github-actions/setup-gcloud@v0
 
-      - name: Connect GCE And execute docker ps
-        run: |-
-          gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" -- 'sudo docker ps'
+    - name: GCP configure docker
+      run: |-
+        gcloud --quiet auth configure-docker
+
+    - name: Docker Compose Build
+      run: |
+        docker-compose build
+
+    - name: Docker Compose Push
+      run: |
+        docker-compose push
+
+    - name: Docker Compose Pull
+      run: |-
+        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" -- 'sudo docker-compose pull test-git_node'
+
+    - name: Docker Compose Start
+      run: |-
+        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" -- 'sudo docker-compose start test-git_node'
+
+    - name: Docker ps
+      run: |-
+        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" -- 'sudo docker ps -a'
