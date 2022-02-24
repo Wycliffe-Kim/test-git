@@ -62,6 +62,11 @@ jobs:
     #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
     #     --command="echo $docker_image_for_nginx"
 
+    - name: ls
+      run: |
+        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+        --command="ls"
+
     - name: Make Variable For Docker Node Image
       run: |
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
