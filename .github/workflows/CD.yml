@@ -10,7 +10,7 @@ name: CD
 on: [push]
 
 env:
-  GCE_INSTANCE: analytics-setting	  
+  GCE_INSTANCE: analytics-setting
   GCE_INSTANCE_ZONE: asia-northeast3-a
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
 
@@ -62,11 +62,6 @@ jobs:
     #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
     #     --command="echo $docker_image_for_nginx"
 
-    - name: ls
-      run: |
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="ls"
-
     - name: Make Variable For Docker Node Image
       run: |
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
@@ -81,17 +76,17 @@ jobs:
       run: |
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
         --command="echo ' \
-          if [ -n ${$(sudo docker ps -aqf "name=f16co/test-git_nginx")} && ${$(sudo docker ps -aqf "name=f16co/test-git_nginx")} != " " ]; then \
-          sudo docker kill ${$(sudo docker ps -aqf "name=f16co/test-git_nginx")} \
+          if [[ -n $(sudo docker ps -aqf "name=f16co/test-git_nginx") && $(sudo docker ps -aqf "name=f16co/test-git_nginx") != " " ]]; then \
+          sudo docker kill $(sudo docker ps -aqf "name=f16co/test-git_nginx") \
           fi \
-          if [ -n ${$(sudo docker ps -aqf "name=f16co/test-git_node")} && ${$(sudo docker ps -aqf "name=f16co/test-git_node")} != " " ]; then \
-          sudo docker kill ${$(sudo docker ps -aqf "name=f16co/test-git_node")} \
+          if [[ -n $(sudo docker ps -aqf "name=f16co/test-git_node") && $(sudo docker ps -aqf "name=f16co/test-git_node") != " " ]]; then \
+          sudo docker kill $(sudo docker ps -aqf "name=f16co/test-git_node") \
           fi \
-          if [ -n ${$(sudo docker images -q f16co/test-git_nginx)} && ${$(sudo docker images -q f16co/test-git_nginx)} != " " ]; then \
-          sudo docker rmi ${$(sudo docker images -q f16co/test-git_nginx)} \
+          if [[ -n $(sudo docker images -q f16co/test-git_nginx) && $(sudo docker images -q f16co/test-git_nginx) != " " ]]; then \
+          sudo docker rmi $(sudo docker images -q f16co/test-git_nginx) \
           fi \
-          if [ -n ${$(sudo docker images -q f16co/test-git_node)} && ${$(sudo docker images -q f16co/test-git_node)} != " " ]; then \
-          sudo docker rmi ${$(sudo docker images -q f16co/test-git_node)} \
+          if [[ -n $(sudo docker images -q f16co/test-git_node) && $(sudo docker images -q f16co/test-git_node) != " " ]]; then \
+          sudo docker rmi $(sudo docker images -q f16co/test-git_node) \
           fi' > analytics-setting.sh"
 
     - name: Check Shell For Docker Stop
