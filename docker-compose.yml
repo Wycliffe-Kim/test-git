@@ -4,7 +4,7 @@ services:
   nginx:
     container_name: nginx
     restart: always
-    image: ${DOCKER_HUB_USERNAME}/test_git_nginx:latest
+    image: gcr.io/${GCP_PROJECT_ID}/${GCE_INSTANCE}-test-nginx:latest
     build:
       dockerfile: Dockerfile
       context: ./nginx
@@ -15,7 +15,7 @@ services:
     
   node:
     container_name: node
-    image: ${DOCKER_HUB_USERNAME}/test-git_node:latest
+    image: gcr.io/${GCP_PROJECT_ID}/${GCE_INSTANCE}-test-node:latest
     build:
       dockerfile: Dockerfile
       context: ./node
@@ -24,7 +24,7 @@ services:
 
   python:
     container_name: python
-    image: ${DOCKER_HUB_USERNAME}/test-git_python:latest
+    image: gcr.io/${GCP_PROJECT_ID}/${GCE_INSTANCE}-test-python:latest
     build: 
       dockerfile: Dockerfile
       context: ./python
