@@ -65,7 +65,7 @@ jobs:
     - name: Make Variable For Docker Node Image
       run: |
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="
+        --command=" \
         docker_image_for_node=$(sudo docker images -q f16co/test-git_node) \
         echo $docker_image_for_node \
         "
