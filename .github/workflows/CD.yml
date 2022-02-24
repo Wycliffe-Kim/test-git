@@ -53,7 +53,8 @@ jobs:
 
     - name: Export Python3 Path
       run: |
-        export CLOUDSDK_PYTHON=/usr/bin/python3
+        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+        --command="export CLOUDSDK_PYTHON=/usr/bin/python3"
 
     - name: Docker Compose Build
       run: |
