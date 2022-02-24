@@ -83,14 +83,20 @@ jobs:
     - name: GCP Github Action
       uses: google-github-actions/setup-gcloud@v0
 
+    # - name: Check Nginx
+    #   run: |
+    #     gcloud run services describe ${{ env.GCE_INSTANCE }}-test-nginx --region=${{ env.GCE_INSTANCE_ZONE }} | grep ${{ env.NGINX_IMAGE }}
+
+    # - name: Check Node
+    #   run: |
+    #     gcloud run services describe ${{ env.GCE_INSTANCE }}-test-node --region=${{ env.GCE_INSTANCE_ZONE }} | grep ${{ env.NODE_IMAGE }}
+
     - name: Check Nginx
       run: |
-# gcloud run services describe ${{ env.GCE_INSTANCE }}-test-nginx --region=${{ env.GCE_INSTANCE_ZONE }} | 
         grep ${{ env.NGINX_IMAGE }}
 
     - name: Check Node
       run: |
-# gcloud run services describe ${{ env.GCE_INSTANCE }}-test-node --region=${{ env.GCE_INSTANCE_ZONE }} | 
         grep ${{ env.NODE_IMAGE }}
 
     - name: Deploy Nginx
