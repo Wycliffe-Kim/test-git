@@ -16,8 +16,8 @@ env:
   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   CLOUDSDK_PYTHON: /usr/bin/python3
   GITHUB_SHA: ${{ github.sha }}
-  NODE_IMAGE: gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-node:$GITHUB_SHA
-  NGINX_IMAGE: gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-nginx:$GITHUB_SHA
+  NODE_IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-node:${{ github.sha }}
+  NGINX_IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-nginx:${{ github.sha }}
 
 jobs:
   cd:
