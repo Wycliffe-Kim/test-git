@@ -69,13 +69,29 @@ jobs:
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
         --command="echo ${CLOUDSDK_PYTHON}"
 
-    - name: Docker Compose Build
+    - name: Docker Compose Build Node
       run: |
-        docker-compose build
+        cd node && docker build -t gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-node:$GITHUB_SHA
 
-    - name: Docker Compose Push
+    - name: Docker Compose Build Nginx
       run: |
-        docker-compose push
+        cd nginx && docker build -t gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-nginx:$GITHUB_SHA
+
+    - name: Docker Compose Push Node
+      run: |
+        cd node && docker push gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-node:$GITHUB_SHA
+
+    - name: Docker Compose Push Nginx
+      run: |
+        cd nginx && docker push gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-nginx:$GITHUB_SHA
+
+    # - name: Docker Compose Build
+    #   run: |
+    #     docker-compose build
+
+    # - name: Docker Compose Push
+    #   run: |
+    #     docker-compose push
 
     - name: Deploy nginx
       run: |
