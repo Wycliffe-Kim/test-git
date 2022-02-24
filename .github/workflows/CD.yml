@@ -83,11 +83,19 @@ jobs:
     - name: GCP Github Action
       uses: google-github-actions/setup-gcloud@v0
 
+    - name: Check Nginx
+      run: |
+        gcloud run services describe ${{ env.GCE_INSTANCE }}-test-nginx | grep ${{ env.NGINX_IMAGE }}
+
+    - name: Check Node
+      run: |
+        gcloud run services describe ${{ env.GCE_INSTANCE }}-test-node | grep ${{ env.NODE_IMAGE }}
+
     - name: Deploy Nginx
       id: deploy_nginx
       uses: google-github-actions/deploy-cloudrun@v0
       with:
-        service: test-nginx
+        service: ${{ env.GCE_INSTANCE }}-test-nginx
         image: ${{ env.NGINX_IMAGE }}
         region: ${{ env.GCE_INSTANCE_ZONE }}
         project_id: ${{ env.GCP_PROJECT_ID }}
@@ -96,7 +104,7 @@ jobs:
       id: deploy_node
       uses: google-github-actions/deploy-cloudrun@v0
       with:
-        service: test-node
+        service: ${{ env.GCE_INSTANCE }}-test-node
         image: ${{ env.NODE_IMAGE }}
         region: ${{ env.GCE_INSTANCE_ZONE }}
         project_id: ${{ env.GCP_PROJECT_ID }}
