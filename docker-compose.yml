@@ -22,10 +22,10 @@ services:
     volumes:
       - /usr/app/node_modules
 
-  python:
-    container_name: python
-    image: gcr.io/${GCP_PROJECT_ID}/${GCE_INSTANCE}-test-python:latest
-    build: 
-      dockerfile: Dockerfile
-      context: ./python
+  # python:
+  #   container_name: python
+  #   image: gcr.io/${GCP_PROJECT_ID}/${GCE_INSTANCE}-test-python:latest
+  #   build: 
+  #     dockerfile: Dockerfile
+  #     context: ./python
       

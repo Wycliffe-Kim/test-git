@@ -65,11 +65,11 @@ jobs:
           --zone "$GCE_INSTANCE_ZONE" \
           --container-image "gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-node:latest"
 
-    - name: Deploy python
-      run: |
-        gcloud compute instances update-container "$GCE_INSTANCE" \
-          --zone "$GCE_INSTANCE_ZONE" \
-          --container-image "gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-python:latest"
+    # - name: Deploy python
+    #   run: |
+    #     gcloud compute instances update-container "$GCE_INSTANCE" \
+    #       --zone "$GCE_INSTANCE_ZONE" \
+    #       --container-image "gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-python:latest"
 
     # - name: Make Variable For Docker Nginx Image
     #   run: |
