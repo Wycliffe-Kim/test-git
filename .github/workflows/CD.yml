@@ -52,70 +52,75 @@ jobs:
       run: |
         docker-compose push
 
-    - name: Make Variable For Docker Nginx Image
+    - name: Test
       run: |
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="docker_image_for_nginx=$(sudo docker images -q f16co/test-git_nginx)"
+        --command="echo test"
 
-    - name: Check Variable For Docker Nginx Image
-      run: |
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="echo $docker_image_for_nginx"
+    # - name: Make Variable For Docker Nginx Image
+    #   run: |
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="docker_image_for_nginx=$(sudo docker images -q f16co/test-git_nginx)"
 
-    - name: Make Variable For Docker Node Image
-      run: |
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="docker_image_for_node=$(sudo docker images -q f16co/test-git_node)"
+    # - name: Check Variable For Docker Nginx Image
+    #   run: |
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="echo $docker_image_for_nginx"
 
-    - name: Check Variable For Docker Node Image
-      run: |
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="echo $docker_image_for_node"
+    # - name: Make Variable For Docker Node Image
+    #   run: |
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="docker_image_for_node=$(sudo docker images -q f16co/test-git_node)"
 
-    - name: Make Shell For Docker Stop
-      run: |
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="echo "
-        if [ -n $docker_image_for_nginx ]; then
-          sudo docker kill $(docker ps -q f16co/test-git_nginx)
-        fi
+    # - name: Check Variable For Docker Node Image
+    #   run: |
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="echo $docker_image_for_node"
 
-        if [ -n $docker_image_for_node ]; then
-          sudo docker kill $(docker ps -q f16co/test-git_node)
-        fi
-        " > analytics-setting.sh"
+    # - name: Make Shell For Docker Stop
+    #   run: |
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="echo "
+    #     if [ -n $docker_image_for_nginx ]; then
+    #       sudo docker kill $(docker ps -q f16co/test-git_nginx)
+    #     fi
+
+    #     if [ -n $docker_image_for_node ]; then
+    #       sudo docker kill $(docker ps -q f16co/test-git_node)
+    #     fi
+    #     " > analytics-setting.sh"
     
-    - name: Run Shell For Docker Stop
-      run: |
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo sh analytics-setting.sh"
+    # - name: Run Shell For Docker Stop
+    #   run: |
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo sh analytics-setting.sh"
 
-    - name: Docker Pull Nginx
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker pull f16co/test-git_nginx:latest"
+    # - name: Docker Pull Nginx
+    #   run: |-
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo docker pull f16co/test-git_nginx:latest"
 
-    - name: Docker Pull Node
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker pull f16co/test-git_node:latest"
+    # - name: Docker Pull Node
+    #   run: |-
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo docker pull f16co/test-git_node:latest"
 
-    - name: Docker Run Nginx
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker run f16co/test-git_nginx:latest"
+    # - name: Docker Run Nginx
+    #   run: |-
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo docker run f16co/test-git_nginx:latest"
 
-    - name: Docker Run Node
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker run f16co/test-git_node:latest"
+    # - name: Docker Run Node
+    #   run: |-
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo docker run f16co/test-git_node:latest"
 
-    - name: Docker images
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker images -a"
+    # - name: Docker images
+    #   run: |-
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo docker images -a"
 
-    - name: Docker ps
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker ps -a"
+    # - name: Docker ps
+    #   run: |-
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo docker ps -a"
