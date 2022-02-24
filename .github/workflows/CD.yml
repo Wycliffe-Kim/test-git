@@ -55,7 +55,7 @@ jobs:
     - name: Make Variable For Docker Nginx Image
       run: |
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="echo docker_image_for_nginx=$(sudo docker images -q f16co/test-git_nginx)"
+        --command="docker_image_for_nginx=$(sudo docker images -q f16co/test-git_nginx)"
 
     - name: Check Variable For Docker Nginx Image
       run: |
@@ -65,7 +65,7 @@ jobs:
     - name: Make Variable For Docker Node Image
       run: |
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="echo docker_image_for_node=$(sudo docker images -q f16co/test-git_node)"
+        --command="docker_image_for_node=$(sudo docker images -q f16co/test-git_node)"
 
     - name: Check Variable For Docker Node Image
       run: |
