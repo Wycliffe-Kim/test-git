@@ -54,6 +54,11 @@ jobs:
       run: |
         python3 --version
 
+    - name: Print Python3 Version in GCP
+      run: |
+        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+        --command="python3 --version"
+
     - name: Export Python3 Path
       run: |
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
