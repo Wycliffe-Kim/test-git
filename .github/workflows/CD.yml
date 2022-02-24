@@ -68,6 +68,7 @@ jobs:
         --command=" \
         docker_image_for_node=$(sudo docker images -q f16co/test-git_node) \
         echo $docker_image_for_node \
+        echo test \
         "
 
     # - name: Check Variable For Docker Node Image
