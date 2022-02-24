@@ -44,7 +44,7 @@ jobs:
       uses: google-github-actions/setup-gcloud@1.3.0
       with:
         service_account_key: ${{ secrets.GCP_SA_KEY }}
-        configure_docker
+        configure_docker: true
 
     - name: GCP configure docker
       run: |
