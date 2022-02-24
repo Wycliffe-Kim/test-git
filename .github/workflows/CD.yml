@@ -88,7 +88,7 @@ jobs:
       uses: google-github-actions/deploy-cloudrun@v0
       with:
         service: test-nginx
-        image: ${{ env.NODE_IMAGE }}
+        image: ${{ env.NGINX_IMAGE }}
         region: ${{ env.GCE_INSTANCE_ZONE }}
         project_id: ${{ env.GCP_PROJECT_ID }}
 
@@ -97,7 +97,7 @@ jobs:
       uses: google-github-actions/deploy-cloudrun@v0
       with:
         service: test-node
-        image: ${{ env.NGINX_IMAGE }}
+        image: ${{ env.NODE_IMAGE }}
         region: ${{ env.GCE_INSTANCE_ZONE }}
         project_id: ${{ env.GCP_PROJECT_ID }}
 
