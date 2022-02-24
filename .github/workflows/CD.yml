@@ -97,12 +97,14 @@ jobs:
 
     - name: Deploy Nginx
       id: deploy_nginx
+      uses: google-github-actions/deploy-cloudrun@v0
       with:
         service: test-nginx
         image: $NGINX_IMAGE
 
     - name: Deploy Node
       id: deploy_node
+      uses: google-github-actions/deploy-cloudrun@v0
       with:
         service: test-node
         image: $NODE_IMAGE
