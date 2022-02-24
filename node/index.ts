@@ -1,13 +1,8 @@
-function main() {
-  console.log('c');
-  const c = { a: 1 };
+import http from "http";
 
-  const a = 1;
-  if (a == 1) {
+const server = http.createServer((request, response) => {
+  response.writeHead(200);
+  response.end("Hello World");
+});
 
-  } else if (a == 2) {
-
-  }
-}
-
-main();
+server.listen(8000);

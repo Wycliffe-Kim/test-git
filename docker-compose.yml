@@ -1,6 +1,18 @@
 version: '3.4'
 
 services:
+  nginx:
+    container: nginx
+    restart: always
+    image: ${DOCKER_HUB_USERNAME}/test_git_nginx:latest
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    depends_on: 
+      - node
+    ports: 
+      - 80:80
+    
   node:
     container_name: node
     image: ${DOCKER_HUB_USERNAME}/test-git_node:latest

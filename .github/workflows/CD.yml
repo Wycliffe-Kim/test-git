@@ -59,12 +59,12 @@ jobs:
     - name: Docker pull
       run: |-
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker pull f16co/test-git_node:latest"
+        --command="sudo docker pull f16co/test-git_nginx:latest f16co/test-git_node:latest"
 
     - name: Docker run
       run: |-
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker run f16co/test-git_node"
+        --command="sudo docker run f16co/test-git_nginx:latest f16co/test-git_node"
 
     - name: Docker images
       run: |-
