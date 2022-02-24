@@ -1,11 +1,13 @@
 name: CD
 
-on:
-  workflow_run:
-    workflows: [ CI ]
-    branches: [ master ]
-    types:
-      - completed
+# on:
+#   workflow_run:
+#     workflows: [ CI ]
+#     branches: [ master ]
+#     types:
+#       - completed
+
+on: [push]
 
 env:
   GCE_INSTANCE: analytics-setting	  
@@ -49,34 +51,38 @@ jobs:
     - name: Docker Compose Push
       run: |-
         docker-compose push
+
+    - name: ls
+      run: |-
+        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+        --command="sudo ls"
     
-    # - name: Docker stop all
+    # - name: Docker pull
     #   run: |-
     #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-    #     --command="sudo docker kill $(docker ps -q)"
+    #     --command="sudo docker pull f16co/test-git_nginx:latest f16co/test-git_node:latest"
 
+    # - name: Docker pull
+    #   run: |-
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo docker pull f16co/test-git_nginx:latest f16co/test-git_node:latest"
 
-    - name: Docker pull
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker pull f16co/test-git_nginx:latest f16co/test-git_node:latest"
+    # - name: Docker run
+    #   run: |-
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo docker run f16co/test-git_nginx:latest f16co/test-git_node"
 
-    - name: Docker run
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker run f16co/test-git_nginx:latest f16co/test-git_node"
+    # - name: Docker images
+    #   run: |-
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo docker images -a"
 
-    - name: Docker images
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker images -a"
+    # - name: Docker ps
+    #   run: |-
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo docker ps -a"
 
-    - name: Docker ps
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker ps -a"
-
-    - name: Docker system prune --volumes
-      run: |-
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo docker system prune --volumes --force"
+    # - name: Docker system prune --volumes
+    #   run: |-
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo docker system prune --volumes --force"
