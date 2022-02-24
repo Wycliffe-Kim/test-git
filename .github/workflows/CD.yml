@@ -97,13 +97,13 @@ jobs:
       run: |
         gcloud compute instances update-container "$GCE_INSTANCE" \
           --zone "$GCE_INSTANCE_ZONE" \
-          --container-image "gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-nginx:latest"
+          --container-image "gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-nginx:$GITHUB_SHA"
 
     - name: Deploy node
       run: |
         gcloud compute instances update-container "$GCE_INSTANCE" \
           --zone "$GCE_INSTANCE_ZONE" \
-          --container-image "gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-node:latest"
+          --container-image "gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-node:$GITHUB_SHA"
 
     # - name: Deploy python
     #   run: |
