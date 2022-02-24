@@ -66,6 +66,8 @@ jobs:
         cd nginx && docker push $NGINX_IMAGE
   
   deploy:
+    needs: publish
+    
     runs-on: ubuntu-latest
 
     permissions:
