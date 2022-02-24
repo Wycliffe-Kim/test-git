@@ -44,18 +44,13 @@ jobs:
       run: |
         gcloud --quiet auth configure-docker
 
-    - name: Docker Compose Build
-      run: |
-        docker-compose build
+    # - name: Docker Compose Build
+    #   run: |
+    #     docker-compose build
 
-    - name: Docker Compose Push
-      run: |
-        docker-compose push
-
-    - name: Test
-      run: |
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="echo test"
+    # - name: Docker Compose Push
+    #   run: |
+    #     docker-compose push
 
     # - name: Make Variable For Docker Nginx Image
     #   run: |
@@ -67,15 +62,15 @@ jobs:
     #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
     #     --command="echo $docker_image_for_nginx"
 
-    # - name: Make Variable For Docker Node Image
-    #   run: |
-    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-    #     --command="docker_image_for_node=$(sudo docker images -q f16co/test-git_node)"
+    - name: Make Variable For Docker Node Image
+      run: |
+        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+        --command="docker_image_for_node=$(sudo docker images -q f16co/test-git_node)"
 
-    # - name: Check Variable For Docker Node Image
-    #   run: |
-    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-    #     --command="echo $docker_image_for_node"
+    - name: Check Variable For Docker Node Image
+      run: |
+        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+        --command="echo $docker_image_for_node"
 
     # - name: Make Shell For Docker Stop
     #   run: |
@@ -124,3 +119,8 @@ jobs:
     #   run: |-
     #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
     #     --command="sudo docker ps -a"
+
+    # - name: Test
+    #   run: |
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="echo test"
