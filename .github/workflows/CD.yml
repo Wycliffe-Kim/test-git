@@ -7,7 +7,7 @@ name: CD
 #     types:
 #       - completed
 
-on: [push]
+on: [ push ]
 
 env:
   GCE_INSTANCE: analytics-setting
