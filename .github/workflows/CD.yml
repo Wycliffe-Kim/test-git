@@ -70,7 +70,7 @@ jobs:
 
     - name: Deploy Nginx
       id: deploy_nginx
-      uses: google-github-actions/deploy-cloudrun@v0.2.0
+      uses: google-github-actions/deploy-cloudrun@v0.3.0
       with:
         service: test-nginx
         image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-nginx:${{ github.sha }}
@@ -79,7 +79,7 @@ jobs:
 
     - name: Deploy Node
       id: deploy_node
-      uses: google-github-actions/deploy-cloudrun@v0.2.0
+      uses: google-github-actions/deploy-cloudrun@v0.3.0
       with:
         service: test-node
         image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-node:${{ github.sha }}
