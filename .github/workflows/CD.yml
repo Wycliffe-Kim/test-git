@@ -85,11 +85,11 @@ jobs:
 
     - name: Check Nginx
       run: |
-        gcloud run services describe ${{ env.GCE_INSTANCE }}-test-nginx | grep ${{ env.NGINX_IMAGE }}
+        gcloud run services describe ${{ env.GCE_INSTANCE }}-test-nginx | grep ${{ env.NGINX_IMAGE }} --region ${{ env.GCE_INSTANCE_ZONE }}
 
     - name: Check Node
       run: |
-        gcloud run services describe ${{ env.GCE_INSTANCE }}-test-node | grep ${{ env.NODE_IMAGE }}
+        gcloud run services describe ${{ env.GCE_INSTANCE }}-test-node | grep ${{ env.NODE_IMAGE }} --region ${{ env.GCE_INSTANCE_ZONE }}
 
     - name: Deploy Nginx
       id: deploy_nginx
