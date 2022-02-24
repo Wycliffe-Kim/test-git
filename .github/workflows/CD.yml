@@ -51,19 +51,19 @@ jobs:
 
     - name: Docker Build Node
       run: |
-        cd node && docker build -t $NODE_IMAGE .
+        cd node && docker build -t ${{ env.NODE_IMAGE }} .
 
     - name: Docker Build Nginx
       run: |
-        cd nginx && docker build -t $NGINX_IMAGE .
+        cd nginx && docker build -t ${{ env.NGINX_IMAGE }} .
 
     - name: Docker Push Node
       run: |
-        cd node && docker push $NODE_IMAGE
+        cd node && docker push ${{ env.NODE_IMAGE }}
 
     - name: Docker Push Nginx
       run: |
-        cd nginx && docker push $NGINX_IMAGE
+        cd nginx && docker push ${{ env.NGINX_IMAGE }}
   
   deploy:
     needs: publish
@@ -91,7 +91,6 @@ jobs:
         image: ${{ env.NGINX_IMAGE }}
         region: ${{ env.GCE_INSTANCE_ZONE }}
         project_id: ${{ env.GCP_PROJECT_ID }}
-        env_vars: SECRET=test-nginx
 
     - name: Deploy Node
       id: deploy_node
@@ -101,7 +100,6 @@ jobs:
         image: ${{ env.NODE_IMAGE }}
         region: ${{ env.GCE_INSTANCE_ZONE }}
         project_id: ${{ env.GCP_PROJECT_ID }}
-        env_vars: SECRET=test-node
 
     - name: Check Output For Deploying Nginx
       run: |
