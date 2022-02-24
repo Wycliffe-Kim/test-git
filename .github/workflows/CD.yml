@@ -76,16 +76,16 @@ jobs:
       run: |
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
         --command="echo " \
-        nginx=f16co/test-git_nginx
-        node=f16co/test-git_node
-        docker_image_for_nginx=$(sudo docker images -q nginx) \
-        docker_image_for_node=$(sudo docker images -q node) \
-        if [ -n ${docker_image_for_nginx} ]; then \
-        sudo docker kill $(docker ps -q nginx) \
-        fi \
-        if [ -n ${docker_image_for_node} ]; then \
-        sudo docker kill $(docker ps -q node) \
-        fi" > analytics-setting.sh"
+          nginx=f16co/test-git_nginx
+          node=f16co/test-git_node
+          docker_image_for_nginx=$(sudo docker images -q nginx) \
+          docker_image_for_node=$(sudo docker images -q node) \
+          if [ -n ${docker_image_for_nginx} ]; then \
+          sudo docker kill $(docker ps -q nginx) \
+          fi \
+          if [ -n ${docker_image_for_node} ]; then \
+          sudo docker kill $(docker ps -q node) \
+          fi" > analytics-setting.sh"
     
     - name: Run Shell For Docker Stop
       run: |
