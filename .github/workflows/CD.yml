@@ -16,6 +16,8 @@ env:
   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   CLOUDSDK_PYTHON: /usr/bin/python3
   GITHUB_SHA: ${{ github.sha }}
+  NODE_IMAGE: gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-node:$GITHUB_SHA
+  NGINX_IMAGE: gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-nginx:$GITHUB_SHA
 
 jobs:
   cd:
@@ -71,19 +73,19 @@ jobs:
 
     - name: Docker Build Node
       run: |
-        cd node && docker build -t gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-node:$GITHUB_SHA .
+        cd node && docker build -t $NODE_IMAGE .
 
     - name: Docker Build Nginx
       run: |
-        cd nginx && docker build -t gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-nginx:$GITHUB_SHA .
+        cd nginx && docker build -t $NGINX_IMAGE .
 
     - name: Docker Push Node
       run: |
-        cd node && docker push gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-node:$GITHUB_SHA
+        cd node && docker push $NODE_IMAGE
 
     - name: Docker Push Nginx
       run: |
-        cd nginx && docker push gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-nginx:$GITHUB_SHA
+        cd nginx && docker push $NGINX_IMAGE
 
     # - name: Docker Compose Build
     #   run: |
@@ -93,17 +95,25 @@ jobs:
     #   run: |
     #     docker-compose push
 
-    - name: Deploy nginx
-      run: |
-        gcloud compute instances update-container "$GCE_INSTANCE" \
-          --zone "$GCE_INSTANCE_ZONE" \
-          --container-image "gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-nginx:$GITHUB_SHA"
+    - name: Deploy Nginx
+      id: deploy_nginx
+      with:
+        service: test-nginx
+        image: $NGINX_IMAGE
 
-    - name: Deploy node
+    - name: Deploy Node
+      id: deploy_node
+      with:
+        service: test-node
+        image: $NODE_IMAGE
+
+    - name: Check Output For Deploying Nginx
       run: |
-        gcloud compute instances update-container "$GCE_INSTANCE" \
-          --zone "$GCE_INSTANCE_ZONE" \
-          --container-image "gcr.io/$GCP_PROJECT_ID/$GCE_INSTANCE-test-node:$GITHUB_SHA"
+        echo ${{ steps.deploy_nginx.outputs.url }}
+
+    - name: Check Output For Deploying Node
+      run: |
+        echo ${{ steps.deploy_node.outputs.url }}
 
     # - name: Deploy python
     #   run: |
