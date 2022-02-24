@@ -67,7 +67,7 @@ jobs:
   
   deploy:
     needs: publish
-    
+
     runs-on: ubuntu-latest
 
     permissions:
@@ -75,6 +75,14 @@ jobs:
       id-token: 'write'
 
     steps:
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v0
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: GCP Github Action
+      uses: google-github-actions/setup-gcloud@v0
+
     - name: Deploy Nginx
       id: deploy_nginx
       uses: google-github-actions/deploy-cloudrun@v0
