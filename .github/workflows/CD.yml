@@ -76,21 +76,17 @@ jobs:
       run: |
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
         --command="echo ' \
-          echo $(sudo docker ps -aqf "name=f16co/test-git_nginx") \
-          if [ -n $(sudo docker ps -aqf "name=f16co/test-git_nginx") && $(sudo docker ps -aqf "name=f16co/test-git_nginx") != " " ]; then \
-          sudo docker kill $(sudo docker ps -aqf "name=f16co/test-git_nginx") \
+          if [ -n ${$(sudo docker ps -aqf "name=f16co/test-git_nginx")} && ${$(sudo docker ps -aqf "name=f16co/test-git_nginx")} != " " ]; then \
+          sudo docker kill ${$(sudo docker ps -aqf "name=f16co/test-git_nginx")} \
           fi \
-          echo $(sudo docker ps -aqf "name=f16co/test-git_node") \
-          if [ -n $(sudo docker ps -aqf "name=f16co/test-git_node") && $(sudo docker ps -aqf "name=f16co/test-git_node") != " " ]; then \
-          sudo docker kill $(sudo docker ps -aqf "name=f16co/test-git_node") \
+          if [ -n ${$(sudo docker ps -aqf "name=f16co/test-git_node")} && ${$(sudo docker ps -aqf "name=f16co/test-git_node")} != " " ]; then \
+          sudo docker kill ${$(sudo docker ps -aqf "name=f16co/test-git_node")} \
           fi \
-          echo $(sudo docker images -q f16co/test-git_nginx) \
-          if [ -n $(sudo docker images -q f16co/test-git_nginx) && $(sudo docker images -q f16co/test-git_nginx) != " " ]; then \
-          sudo docker rmi $(sudo docker images -q f16co/test-git_nginx) \
+          if [ -n ${$(sudo docker images -q f16co/test-git_nginx)} && ${$(sudo docker images -q f16co/test-git_nginx)} != " " ]; then \
+          sudo docker rmi ${$(sudo docker images -q f16co/test-git_nginx)} \
           fi \
-          echo $(sudo docker images -q f16co/test-git_node) \
-          if [ -n $(sudo docker images -q f16co/test-git_node) && $(sudo docker images -q f16co/test-git_node) != " " ]; then \
-          sudo docker rmi $(sudo docker images -q f16co/test-git_node) \
+          if [ -n ${$(sudo docker images -q f16co/test-git_node)} && ${$(sudo docker images -q f16co/test-git_node)} != " " ]; then \
+          sudo docker rmi ${$(sudo docker images -q f16co/test-git_node)} \
           fi' > analytics-setting.sh"
 
     - name: Check Shell For Docker Stop
@@ -98,10 +94,10 @@ jobs:
         gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
         --command="cat analytics-setting.sh"
     
-    # - name: Run Shell For Docker Stop
-    #   run: |
-    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-    #     --command="sudo sh analytics-setting.sh"
+    - name: Run Shell For Docker Stop
+      run: |
+        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+        --command="sudo sh analytics-setting.sh"
 
     # - name: Docker Pull Nginx
     #   run: |-
