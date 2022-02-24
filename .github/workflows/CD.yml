@@ -62,40 +62,43 @@ jobs:
     #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
     #     --command="echo $docker_image_for_nginx"
 
-    # - name: Make Variable For Docker Node Image
-    #   run: |
-    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-    #     --command="docker_image_for_node=$(sudo docker images -q f16co/test-git_node)"
+    - name: Make Variable For Docker Node Image
+      run: |
+        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+        --command="
+        docker_image_for_node=$(sudo docker images -q f16co/test-git_node) \
+        echo $docker_image_for_node \
+        "
 
     # - name: Check Variable For Docker Node Image
     #   run: |
     #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
     #     --command="echo $docker_image_for_node"
 
-    - name: Make Shell For Docker Stop
-      run: |
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="echo ' \
-          nginx=f16co/test-git_nginx
-          node=f16co/test-git_node
-          docker_image_for_nginx=$(sudo docker images -q nginx) \
-          docker_image_for_node=$(sudo docker images -q node) \
-          if [ -n ${docker_image_for_nginx} ]; then \
-          sudo docker kill $(docker ps -q nginx) \
-          fi \
-          if [ -n ${docker_image_for_node} ]; then \
-          sudo docker kill $(docker ps -q node) \
-          fi' > analytics-setting.sh"
+    # - name: Make Shell For Docker Stop
+    #   run: |
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="echo ' \
+    #       nginx=f16co/test-git_nginx
+    #       node=f16co/test-git_node
+    #       docker_image_for_nginx=$(sudo docker images -q nginx) \
+    #       docker_image_for_node=$(sudo docker images -q node) \
+    #       if [ -n ${docker_image_for_nginx} ]; then \
+    #       sudo docker kill $(docker ps -q nginx) \
+    #       fi \
+    #       if [ -n ${docker_image_for_node} ]; then \
+    #       sudo docker kill $(docker ps -q node) \
+    #       fi' > analytics-setting.sh"
 
-    - name: Check Shell For Docker Stop
-      run: |
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="cat analytics-setting.sh"
+    # - name: Check Shell For Docker Stop
+    #   run: |
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="cat analytics-setting.sh"
     
-    - name: Run Shell For Docker Stop
-      run: |
-        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
-        --command="sudo sh analytics-setting.sh"
+    # - name: Run Shell For Docker Stop
+    #   run: |
+    #     gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+    #     --command="sudo sh analytics-setting.sh"
 
     # - name: Docker Pull Nginx
     #   run: |-
