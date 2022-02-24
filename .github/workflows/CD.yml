@@ -15,6 +15,7 @@ env:
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   CLOUDSDK_PYTHON: /usr/bin/python3
+  GITHUB_SHA: ${{ github.sha }}
 
 jobs:
   cd:

@@ -4,7 +4,7 @@ services:
   nginx:
     container_name: nginx
     restart: always
-    image: gcr.io/${GCP_PROJECT_ID}/${GCE_INSTANCE}-test-nginx:latest
+    image: gcr.io/${GCP_PROJECT_ID}/${GCE_INSTANCE}-test-nginx:${GITHUB_SHA}
     build:
       dockerfile: Dockerfile
       context: ./nginx
@@ -15,7 +15,7 @@ services:
     
   node:
     container_name: node
-    image: gcr.io/${GCP_PROJECT_ID}/${GCE_INSTANCE}-test-node:latest
+    image: gcr.io/${GCP_PROJECT_ID}/${GCE_INSTANCE}-test-node:${GITHUB_SHA}
     # image: ${DOCKER_HUB_USERNAME}/test-git_node:latest
     build:
       dockerfile: Dockerfile
