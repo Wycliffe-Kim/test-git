@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.8'
 
 services:
   nginx:
@@ -15,8 +15,8 @@ services:
     
   node:
     container_name: node
-    # image: gcr.io/${GCP_PROJECT_ID}/${GCE_INSTANCE}-test-node:latest
-    image: ${DOCKER_HUB_USERNAME}/test-git_node:latest
+    image: gcr.io/${GCP_PROJECT_ID}/${GCE_INSTANCE}-test-node:latest
+    # image: ${DOCKER_HUB_USERNAME}/test-git_node:latest
     build:
       dockerfile: Dockerfile
       context: ./node
