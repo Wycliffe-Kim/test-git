@@ -75,6 +75,7 @@ jobs:
         service: test-nginx
         image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-nginx:${{ github.sha }}
         region: asia-northeast3-a
+        project_id: ${{ secrect.GCP_PROJECT_ID }}
 
     - name: Deploy Node
       id: deploy_node
@@ -83,6 +84,7 @@ jobs:
         service: test-node
         image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-node:${{ github.sha }}
         region: asia-northeast3-a
+        project_id: ${{ secrect.GCP_PROJECT_ID }}
 
     - name: Check Output For Deploying Nginx
       run: |
