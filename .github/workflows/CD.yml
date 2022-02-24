@@ -86,6 +86,11 @@ jobs:
           if [ -n ${docker_image_for_node} ]; then \
           sudo docker kill $(docker ps -q node) \
           fi' > analytics-setting.sh"
+
+    - name: Check Shell For Docker Stop
+      run: |
+        gcloud compute ssh "$GCE_INSTANCE" --zone "$GCE_INSTANCE_ZONE" \
+        --command="cat analytics-setting.sh"
     
     - name: Run Shell For Docker Stop
       run: |
