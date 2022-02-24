@@ -50,6 +50,10 @@ jobs:
       run: |
         python3 --version
 
+    - name: Export Python3 Path
+      run: |
+        export CLOUDSDK_PYTHON=/usr/bin/python3
+
     - name: Docker Compose Build
       run: |
         docker-compose build
