@@ -10,22 +10,24 @@ name: CD
 on: [ push ]
 
 env:
-  GCE_INSTANCE: analytics-setting
-  GCE_INSTANCE_ZONE: asia-northeast3-a
+  # GCE_INSTANCE: analytics-setting
+  # GCE_INSTANCE_ZONE: asia-northeast3-a
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  CLOUDSDK_PYTHON: /usr/bin/python3
+  # GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  # CLOUDSDK_PYTHON: /usr/bin/python3
   GITHUB_SHA: ${{ github.sha }}
-  NODE_IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-node:${{ github.sha }}
-  NGINX_IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-nginx:${{ github.sha }}
+  # NODE_IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-node:${{ github.sha }}
+  # NGINX_IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-nginx:${{ github.sha }}
+  NODE_IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/test-git_node:${{ github.sha }}
+  NGINX_IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/test-git_nginx:${{ github.sha }}
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: 'read'
-      id-token: 'write'
+    # permissions:
+    #   contents: 'read'
+    #   id-token: 'write'
     
     steps:
     - name: Checkout Repo
@@ -37,17 +39,17 @@ jobs:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v0
-      with:
-        credentials_json: ${{ secrets.GCP_SA_KEY }}
+    # - name: Authenticate to Google Cloud
+    #   uses: google-github-actions/auth@v0
+    #   with:
+    #     credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-    - name: GCP Github Action
-      uses: google-github-actions/setup-gcloud@v0
+    # - name: GCP Github Action
+    #   uses: google-github-actions/setup-gcloud@v0
 
-    - name: GCP configure docker
-      run: |
-        gcloud --quiet auth configure-docker
+    # - name: GCP configure docker
+    #   run: |
+    #     gcloud --quiet auth configure-docker
 
     - name: Docker Build Node
       run: |
@@ -64,63 +66,55 @@ jobs:
     - name: Docker Push Nginx
       run: |
         cd nginx && docker push ${{ env.NGINX_IMAGE }}
+
+    - name: Docker Compose Build
+      run: |
+        docker-compose build
+
+    - name: Docker Compose Push
+      run: |
+        docker-compose push
   
-  deploy:
-    needs: publish
+  # deploy:
+  #   needs: publish
 
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
 
-    permissions:
-      contents: 'read'
-      id-token: 'write'
+  #   permissions:
+  #     contents: 'read'
+  #     id-token: 'write'
 
-    steps:
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v0
-      with:
-        credentials_json: ${{ secrets.GCP_SA_KEY }}
+  #   steps:
+  #   - name: Authenticate to Google Cloud
+  #     uses: google-github-actions/auth@v0
+  #     with:
+  #       credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-    - name: GCP Github Action
-      uses: google-github-actions/setup-gcloud@v0
+  #   - name: GCP Github Action
+  #     uses: google-github-actions/setup-gcloud@v0
 
-    # - name: Check Nginx
-    #   run: |
-    #     gcloud run services describe ${{ env.GCE_INSTANCE }}-test-nginx --region=${{ env.GCE_INSTANCE_ZONE }} | grep ${{ env.NGINX_IMAGE }}
+  #   - name: Deploy Nginx
+  #     id: deploy_nginx
+  #     uses: google-github-actions/deploy-cloudrun@v0
+  #     with:
+  #       service: ${{ env.GCE_INSTANCE }}-test-nginx
+  #       image: ${{ env.NGINX_IMAGE }}
+  #       region: ${{ env.GCE_INSTANCE_ZONE }}
+  #       project_id: ${{ env.GCP_PROJECT_ID }}
 
-    # - name: Check Node
-    #   run: |
-    #     gcloud run services describe ${{ env.GCE_INSTANCE }}-test-node --region=${{ env.GCE_INSTANCE_ZONE }} | grep ${{ env.NODE_IMAGE }}
+  #   - name: Deploy Node
+  #     id: deploy_node
+  #     uses: google-github-actions/deploy-cloudrun@v0
+  #     with:
+  #       service: ${{ env.GCE_INSTANCE }}-test-node
+  #       image: ${{ env.NODE_IMAGE }}
+  #       region: ${{ env.GCE_INSTANCE_ZONE }}
+  #       project_id: ${{ env.GCP_PROJECT_ID }}
 
-    - name: Check Nginx
-      run: |
-        grep ${{ env.NGINX_IMAGE }}
+  #   - name: Check Output For Deploying Nginx
+  #     run: |
+  #       echo ${{ steps.deploy_nginx.outputs.url }}
 
-    - name: Check Node
-      run: |
-        grep ${{ env.NODE_IMAGE }}
-
-    - name: Deploy Nginx
-      id: deploy_nginx
-      uses: google-github-actions/deploy-cloudrun@v0
-      with:
-        service: ${{ env.GCE_INSTANCE }}-test-nginx
-        image: ${{ env.NGINX_IMAGE }}
-        region: ${{ env.GCE_INSTANCE_ZONE }}
-        project_id: ${{ env.GCP_PROJECT_ID }}
-
-    - name: Deploy Node
-      id: deploy_node
-      uses: google-github-actions/deploy-cloudrun@v0
-      with:
-        service: ${{ env.GCE_INSTANCE }}-test-node
-        image: ${{ env.NODE_IMAGE }}
-        region: ${{ env.GCE_INSTANCE_ZONE }}
-        project_id: ${{ env.GCP_PROJECT_ID }}
-
-    - name: Check Output For Deploying Nginx
-      run: |
-        echo ${{ steps.deploy_nginx.outputs.url }}
-
-    - name: Check Output For Deploying Node
-      run: |
-        echo ${{ steps.deploy_node.outputs.url }}
+  #   - name: Check Output For Deploying Node
+  #     run: |
+  #       echo ${{ steps.deploy_node.outputs.url }}
