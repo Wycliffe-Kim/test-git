@@ -18,8 +18,8 @@ env:
   GITHUB_SHA: ${{ github.sha }}
   # NODE_IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-node:${{ github.sha }}
   # NGINX_IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-nginx:${{ github.sha }}
-  NODE_IMAGE: test-git_node:latest
-  NGINX_IMAGE: test-git_nginx:latest
+  NODE_IMAGE: ${{ env.DOCKER_HUB_NAME }}/test-git_node:latest
+  NGINX_IMAGE: ${{ env.DOCKER_HUB_NAME }}/test-git_nginx:latest
 
 jobs:
   publish:
@@ -51,21 +51,21 @@ jobs:
     #   run: |
     #     gcloud --quiet auth configure-docker
 
-    - name: Docker Build Node
-      run: |
-        cd node && docker build -t ${{ env.NODE_IMAGE }} .
+    # - name: Docker Build Node
+    #   run: |
+    #     cd node && docker build -t ${{ env.NODE_IMAGE }} .
 
-    - name: Docker Build Nginx
-      run: |
-        cd nginx && docker build -t ${{ env.NGINX_IMAGE }} .
+    # - name: Docker Build Nginx
+    #   run: |
+    #     cd nginx && docker build -t ${{ env.NGINX_IMAGE }} .
 
-    - name: Docker Push Node
-      run: |
-        cd node && docker push ${{ env.NODE_IMAGE }}
+    # - name: Docker Push Node
+    #   run: |
+    #     cd node && docker push ${{ env.NODE_IMAGE }}
 
-    - name: Docker Push Nginx
-      run: |
-        cd nginx && docker push ${{ env.NGINX_IMAGE }}
+    # - name: Docker Push Nginx
+    #   run: |
+    #     cd nginx && docker push ${{ env.NGINX_IMAGE }}
 
     - name: Docker Compose Build
       run: |

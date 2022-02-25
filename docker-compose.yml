@@ -4,7 +4,7 @@ services:
   nginx:
     container_name: nginx
     restart: always
-    image: test-git_nginx:latest
+    image: f16co/test-git_nginx:latest
     build:
       dockerfile: Dockerfile
       context: ./nginx
@@ -15,7 +15,7 @@ services:
     
   node:
     container_name: node
-    image: test-git_node:latest
+    image: f16co/test-git_node:latest
     build:
       dockerfile: Dockerfile
       context: ./node
