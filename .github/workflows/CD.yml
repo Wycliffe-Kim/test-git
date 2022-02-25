@@ -18,8 +18,8 @@ env:
   GITHUB_SHA: ${{ github.sha }}
   # NODE_IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-node:${{ github.sha }}
   # NGINX_IMAGE: gcr.io/${{ secrets.GCP_PROJECT_ID }}/analytics-setting-test-nginx:${{ github.sha }}
-  NODE_IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/test-git_node:${{ github.sha }}
-  NGINX_IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/test-git_nginx:${{ github.sha }}
+  NODE_IMAGE: test-git_node:latest
+  NGINX_IMAGE: test-git_nginx:latest
 
 jobs:
   publish:
