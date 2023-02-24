@@ -1,0 +1,17 @@
+name: CD for mk production
+
+on:
+  push:
+    tags:
+      - mk_*
+
+jobs:
+  CD_mk_production:
+    name: CD for mk production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Echo
+        run: echo mk

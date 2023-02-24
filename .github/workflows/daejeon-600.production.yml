@@ -1,0 +1,17 @@
+name: CD for daejeon-600 production
+
+on:
+  push:
+    tags:
+      - daejeon-600_*
+
+jobs:
+  CD_daejeon-600_production:
+    name: CD for daejeon-600 production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Echo
+        run: echo daejeon-600
