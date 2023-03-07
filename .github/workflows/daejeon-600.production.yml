@@ -5,6 +5,9 @@ on:
     tags:
       - daejeon-600_*
 
+env:
+  TEST_ENV_1: ${{ vars.TEST_ENV_1 }}
+
 jobs:
   CD_daejeon-600_production:
     name: CD for daejeon-600 production
@@ -13,5 +16,5 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
 
-      - name: Echo
-        run: echo daejeon-600
+      - name: echo
+        run: printenv
