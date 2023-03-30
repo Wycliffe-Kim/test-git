@@ -20,7 +20,7 @@ jobs:
         run: printenv
 
       - name: Set env
-        run: echo "RELEASE_VERSION=${GITHUB_REF_NAME#/*/}" >> $GITHUB_ENV
+        run: echo "RELEASE_VERSION=${GITHUB_REF_NAME#/daejeon-600_/}" >> $GITHUB_ENV
         
       - name: Test
         run: |
