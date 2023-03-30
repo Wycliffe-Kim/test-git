@@ -16,9 +16,6 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
 
-      - name: echo
-        run: printenv
-
       - name: Set output
         id: test-version
         run: echo "TEST_VERSION="${GITHUB_REF_NAME} | cut -d_ -f 2"" >> $GITHUB_OUTPUT
@@ -30,4 +27,4 @@ jobs:
         run: echo "RELEASE_VERSION=${{ steps.test-version.outputs.TEST_VERSION }}" >> $GITHUB_ENV
 
       - name: Print env
-        run: echo ${{ env.RELEASE_VERSION }}
+        run: printenv
