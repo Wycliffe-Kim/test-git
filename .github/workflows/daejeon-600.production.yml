@@ -23,4 +23,7 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF_NAME} | cut -d"_" -f 2" >> $GITHUB_ENV
         
       - name: Test
-        run: echo ${{ env.RELEASE_VERSION }}
+        run: echo "TEST=${{ env.RELEASE_VERSION }}" >> $GITHUB_ENV"
+
+      - name: Test2
+        run: echo ${{ env.TEST }}
