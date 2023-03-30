@@ -20,7 +20,7 @@ jobs:
         run: printenv
 
       - name: Set env
-        run: echo "TEST="${GITHUB_REF_NAME} | cut -d"_" -f 2"" >> $GITHUB_ENV
+        run: echo "RELEASE_VERSION="${GITHUB_REF_NAME} | cut -d"_" -f 2"" >> $GITHUB_ENV
         
       - name: Test
-        run: echo "RELEASE_VERSION=echo ${{ env.TEST }}" >> $GITHUB_ENV
+        run: echo ${ env.RELEASE_VERSION }
