@@ -17,4 +17,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Get Release Notes
-        run: echo "$(git tag -l --format="%(contents:body)" $GITHUB_REF_NAME)"
+        run: 'echo "$(git tag -l --format="%(contents:body)" $GITHUB_REF_NAME)" > RELEASE_NOTE'
+
+      - name: Echo Release
+        run: 'echo "RELEASE_NOTE: $(cat RELEASE_NOTE)"'
