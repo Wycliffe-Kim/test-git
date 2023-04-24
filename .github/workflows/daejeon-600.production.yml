@@ -22,9 +22,3 @@ jobs:
       
       - name: The output
         run: echo ${{ steps.tag-data.outputs.git-tag-annotation }}
-        
-      - uses: auguwu/git-tag-action@master
-        id: git-tag
-
-      - run:
-          echo "${{ steps.outputs.git-tag.json }}"
