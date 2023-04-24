@@ -22,3 +22,10 @@ jobs:
       
       - name: The output
         run: echo ${{ steps.tag-data.outputs.git-tag-annotation }}
+
+      - name: Get tag
+        id: tag
+        uses: devops-actions/action-get-tag@v1.0.1
+
+      - name: Use tag
+        run: echo ${{steps.tag.outputs.tag}}
