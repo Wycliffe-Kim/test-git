@@ -15,10 +15,15 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
+
+      - uses: bcomnes/get-git-tag@v3.0.1
+        id: tagName
       
       - name: Get tag annotation
         id: tag-data
         uses: ericcornelissen/git-tag-annotation-action@v2
+        with:
+          tag: ${{ steps.tagName.outputs.tag }}
       
       - name: The output
         run: echo ${{ steps.tag-data.outputs.git-tag-annotation }}
