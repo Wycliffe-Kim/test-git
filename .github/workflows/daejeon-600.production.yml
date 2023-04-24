@@ -16,14 +16,5 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
 
-      - uses: bcomnes/get-git-tag@master
-        id: tagName
-      
-      - name: Get tag annotation
-        id: tag-data
-        uses: ericcornelissen/git-tag-annotation-action@v2
-        with:
-          tag: ${{ steps.tagName.outputs.tag }}
-      
-      - name: The output
-        run: echo ${{ steps.tag-data.outputs.git-tag-annotation }}
+      - name: Get Release Notes
+        run: 'echo "$(git tag -l --format="%(contents:body)" $GITHUB_REF_NAME)"
