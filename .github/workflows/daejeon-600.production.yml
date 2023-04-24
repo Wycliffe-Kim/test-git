@@ -16,8 +16,10 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
 
-      - name: Set output
-        run: echo "TEST_VERSION=$(echo ${GITHUB_REF_NAME} | cut -d_ -f 2)" >> $GITHUB_ENV
-
-      - name: Print env
-        run: printenv TEST_VERSION
+      - name: Create Release
+        id: create_release
+        uses: Akryum/release-tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
