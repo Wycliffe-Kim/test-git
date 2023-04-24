@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
 
-      - uses: bcomnes/get-git-tag@v3.0.1
+      - uses: bcomnes/get-git-tag@master
         id: tagName
       
       - name: Get tag annotation
