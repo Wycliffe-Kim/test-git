@@ -8,7 +8,7 @@ on:
 env:
   TEST_ENV_1: ${{ vars.TEST_ENV_1 }}
 
-permissions: real-all
+permissions: read-all
 
 jobs:
   CD_daejeon-600_AWS:
