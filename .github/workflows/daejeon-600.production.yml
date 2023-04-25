@@ -33,6 +33,7 @@ jobs:
     needs: [ CD_daejeon-600_AWS, CD_daejeon-600_DockerHub ]
     name: CD for daejeon-600 release
     runs-on: ubuntu-latest
+    permissions: read-all|write-all
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
