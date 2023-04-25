@@ -10,9 +10,9 @@ env:
 
 permissions:
   id-token: write
+  actions: read
   contents: read
-  actions: write
-  deployments: write
+  security-events: write
 
 jobs:
   CD_daejeon-600_AWS:
