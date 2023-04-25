@@ -1,0 +1,21 @@
+name: CD for daejeon-600 release
+
+on:
+  workflow_run:
+    workflows: [ CD for daejeon-600 production ]
+    tags:
+      - daejeon-600_*
+    types:
+      - completed
+
+jobs:
+  CD_daejeon-600_release:
+    name: CD for daejeon-600 release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Echo Tag
+        run: echo $GITHUB_REF_NAME
+```
