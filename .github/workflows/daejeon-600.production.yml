@@ -8,13 +8,6 @@ on:
 env:
   TEST_ENV_1: ${{ vars.TEST_ENV_1 }}
 
-permissions:
-  id-token: read
-  actions: read
-  contents: read
-  security-events: write
-  deployments: write
-
 jobs:
   CD_daejeon-600_AWS:
     name: CD for daejeon-600 production
