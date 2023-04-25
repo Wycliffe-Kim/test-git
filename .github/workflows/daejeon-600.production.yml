@@ -9,7 +9,7 @@ env:
   TEST_ENV_1: ${{ vars.TEST_ENV_1 }}
 
 permissions:
-  id-token: write
+  id-token: read
   actions: read
   contents: read
   security-events: write
