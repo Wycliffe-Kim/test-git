@@ -17,7 +17,17 @@ jobs:
         uses: actions/checkout@master
 
       - name: Get Release Notes
-        run: 'echo "$(git tag -l --format="%(contents:body)" $GITHUB_REF_NAME)" > RELEASE_NOTE'
+        run: 'echo "$(git tag -l --format="%(contents)" $GITHUB_REF_NAME)" > RELEASE_NOTE'
 
       - name: Echo Release
         run: 'echo "RELEASE_NOTE: $(cat RELEASE_NOTE)"'
+
+  CD_daejeon-600_dd:
+    name: CD for daejeon-600 dd
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Echo Release
+        run: echo dd
