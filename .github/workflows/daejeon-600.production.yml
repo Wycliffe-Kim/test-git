@@ -16,6 +16,9 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
 
+      - name: Get GITHUB_REF_NAME
+        run: 'echo "$GITHUB_REF_NAME"'
+
       - name: Get Release Notes
         run: 'echo "$(git tag -l --format="%(contents)" $GITHUB_REF_NAME)" > RELEASE_NOTE'
 
