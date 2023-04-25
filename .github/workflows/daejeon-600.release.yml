@@ -21,4 +21,3 @@ jobs:
 
       - name: Echo Release
         run: 'echo "RELEASE_NOTE: $(cat RELEASE_NOTE)"'
-```
