@@ -2,7 +2,7 @@ name: CD for daejeon-600 release
 
 on:
   workflow_run:
-    workflows: [ "daejeon-600.production" ]
+    workflows: [ "CD for daejeon-600 production" ]
     types:
       - completed
 
