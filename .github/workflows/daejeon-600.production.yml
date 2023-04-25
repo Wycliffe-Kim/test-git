@@ -8,10 +8,7 @@ on:
 env:
   TEST_ENV_1: ${{ vars.TEST_ENV_1 }}
 
-permissions:
-  actions: read|write
-  deployments: read|write
-  id-token: read|write
+permissions: real-all
 
 jobs:
   CD_daejeon-600_AWS:
