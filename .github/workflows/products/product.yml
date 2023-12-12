@@ -1,0 +1,17 @@
+name: CD for product
+
+on:
+  push:
+    branches:
+      - product*
+
+jobs:
+  CD_for_product:
+    name: CD for product
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Echo
+        run: echo product
